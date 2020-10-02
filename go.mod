@@ -3,8 +3,7 @@ module github.com/wal-g/storages
 go 1.13
 
 require (
-	cloud.google.com/go v0.60.0 // indirect
-	cloud.google.com/go/storage v1.8.0
+	cloud.google.com/go/storage v1.10.0
 	github.com/Azure/azure-pipeline-go v0.2.2 // indirect
 	github.com/Azure/azure-storage-blob-go v0.8.0
 	github.com/Azure/go-autorest/autorest/adal v0.9.2 // indirect
@@ -18,6 +17,9 @@ require (
 	github.com/stretchr/testify v1.5.1
 	github.com/wal-g/tracelog v0.0.0-20190824100002-0ab2b054ff30
 	golang.org/x/crypto v0.0.0-20200709230013-948cd5f35899
-	google.golang.org/api v0.28.0
+	google.golang.org/api v0.32.0
 	gopkg.in/yaml.v2 v2.2.7 // indirect
 )
+
+// TODO: remove after merge https://github.com/googleapis/google-api-go-client/pull/686
+replace google.golang.org/api => github.com/agneum/google-api-go-client v0.32.1-0.20201002085333-2eedfd9dda7e

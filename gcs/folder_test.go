@@ -3,7 +3,6 @@ package gcs
 import (
 	"errors"
 	"testing"
-	"time"
 
 	gcs "cloud.google.com/go/storage"
 
@@ -52,42 +51,5 @@ func TestUploadingReaderFails(t *testing.T) {
 	}
 
 	err := folder.PutObject("name", fakeReader{})
-	assert.EqualError(t, err, "GCS error : Unable to read a chunk of data to upload: failed to fake read")
-}
-
-func TestJitterDelay(t *testing.T) {
-	baseDelay := time.Second
-	delay := getJitterDelay(baseDelay)
-
-	assert.GreaterOrEqual(t, int64(delay), int64(baseDelay))
-	assert.LessOrEqual(t, int64(delay), int64(2*baseDelay))
-}
-
-func TestMinDuration(t *testing.T) {
-	testCases := []struct {
-		duration1           time.Duration
-		duration2           time.Duration
-		expectedMinDuration time.Duration
-	}{
-		{
-			duration1:           time.Second,
-			duration2:           5 * time.Second,
-			expectedMinDuration: time.Second,
-		},
-		{
-			duration1:           3 * time.Second,
-			duration2:           2 * time.Second,
-			expectedMinDuration: 2 * time.Second,
-		},
-		{
-			duration1:           time.Second,
-			duration2:           time.Second,
-			expectedMinDuration: time.Second,
-		},
-	}
-
-	for _, tc := range testCases {
-		result := minDuration(tc.duration1, tc.duration2)
-		assert.Equal(t, tc.expectedMinDuration, result)
-	}
+	assert.EqualError(t, err, "GCS error : Unable to copy to object: failed to fake read")
 }
